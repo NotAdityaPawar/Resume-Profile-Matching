@@ -1,0 +1,33 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-body">
+      <p class="title">
+        Profile Matcher
+      </p>
+      <p class="subtitle">
+        Match your profile with the job Description
+      </p>
+    </div>
+  </section>
+  <form action="result">
+<div class="columns">
+    <div class="column">
+        <div class="box">
+
+            <textarea class="textarea" placeholder="Resume over here" name="resume"></textarea>
+
+          </div>
+    </div>
+    <div class="column">
+        <div class="box">
+
+            <textarea class="textarea" placeholder="Paste your Job Description here!!" name="jd"></textarea>
+          </div>
+    </div>
+  </div>
+  <input type="submit" class="button"></input>
+</form>
+*All the functionalities have been reduced to version 1.0, thanks for your patience
+{% endblock %}

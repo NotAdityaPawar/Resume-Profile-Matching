@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="box">
+    Viola your profile matching percentage is {{data}}%
+  </div>
+  <div class="box">
+    <a class="button" href="{%url 'job_list' %}">Go to the latest jobs</a>
+  </div>
+{% endblock %}
