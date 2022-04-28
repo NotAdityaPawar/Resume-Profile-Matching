@@ -5,7 +5,7 @@ from django.views import generic
 
 from django.urls import reverse_lazy
 
-from .forms import RegistrationForm
+from .forms import RegistrationForm, AddJob
 
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -14,7 +14,7 @@ from django.shortcuts import render
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-
+from jobs.customFunctions import *
 
 
 class JobListView (generic.ListView):
@@ -28,11 +28,48 @@ class JobDetailView(generic.DetailView):
     model = Job
     template_name = 'jobdetail.html'
 
+class JobDelete(generic.DeleteView):
+    model = Job
+    success_url = reverse_lazy('job_list')
+    template_name = 'delete_job.html'
+
+
 
 class SignUp(generic.CreateView):
     form_class = RegistrationForm
     success_url = reverse_lazy('login')
     template_name = 'register.html'
+
+    def delete(self, request, *args, **kwargs):
+        """
+        Call the delete() method on the fetched object and then redirect to the
+        success URL.
+        """
+        self.object = self.get_object()
+        print("----------------------------")
+        print(self.object.data)
+        success_url = self.get_success_url()
+        self.object.delete()
+        return HttpResponseRedirect(success_url)
+
+class JobRegister(generic.CreateView):
+    form_class = AddJob
+    success_url = reverse_lazy('job_list')
+    template_name = 'addjob.html'
+
+    def get_form_kwargs(self):
+        form_kwargs = super().get_form_kwargs()
+
+        if self.request.method == "POST":
+            print("-------------------------------")
+            print(form_kwargs)
+            form_kwargs['data']._mutable=True
+            form_kwargs['data']['posted_by'] = str(self.request.user.id)
+
+        return form_kwargs
+
+
+
 
 
 
@@ -47,8 +84,12 @@ def ShowResult(request):
     jd = request.GET['jd']
     resume = request.GET['resume']
 
+    jd = cleanText(jd)
+    resume = cleanText(resume)
 
     text = [resume,jd]
+
+
 
     cv = CountVectorizer()
     count_matrix = cv.fit_transform(text)
