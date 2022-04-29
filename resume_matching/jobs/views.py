@@ -81,8 +81,12 @@ def ResumeMatch(request):
     return render(request,"resume.html",{})
 
 def ShowResult(request):
-    jd = request.GET['jd']
-    resume = request.GET['resume']
+    print(request)
+    jd = request.POST['jd']
+    resume = request.POST['resume']
+    print(resume)
+
+    file =  request.FILES['file'] if request.FILES['file'] else False
 
     jd = cleanText(jd)
     resume = cleanText(resume)

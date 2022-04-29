@@ -11,12 +11,14 @@
       </p>
     </div>
   </section>
-  <form action="result">
-<div class="columns">
+<form action="result" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="columns">
     <div class="column">
         <div class="box">
 
             <textarea class="textarea" placeholder="Resume over here" name="resume"></textarea>
+            <input type="file" name = "file">
 
           </div>
     </div>
