@@ -25,10 +25,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-@l01!wu7j0u2g*ngcuws5cl&+w7x27x-vhuz@fyeswlc6m%6u!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
-    '*'
+    '*',
+    ''
 ]
 
 
@@ -139,3 +140,6 @@ LOGOUT_REDIRECT_URL = '/jobs'
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
 SECURE_SSL_REDIRECT = False
+
+
+CSRF_TRUSTED_ORIGINS = ['*']
