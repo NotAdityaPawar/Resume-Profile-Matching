@@ -86,7 +86,7 @@ def ShowResult(request):
     resume = request.POST['resume']
     print(resume)
 
-    file =  request.FILES['file'] if request.FILES['file'] else False
+    #file =  request.FILES['file'] if request.FILES['file'] else False
 
     jd = cleanText(jd)
     resume = cleanText(resume)
